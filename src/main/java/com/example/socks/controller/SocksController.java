@@ -1,7 +1,7 @@
 package com.example.socks.controller;
 
 import com.example.socks.model.Socks;
-import com.example.socks.service.SocsService;
+import com.example.socks.service.SocksService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,15 +9,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.socks.service.SocsService.OPERATIONS;
+import static com.example.socks.service.SocksService.OPERATIONS;
 
 @RestController
 @RequestMapping("/api/socks")
 public class SocksController {
-    private final SocsService socsService;
+    private final SocksService socksService;
 
-    public SocksController(SocsService socsService) {
-        this.socsService = socsService;
+    public SocksController(SocksService socksService) {
+        this.socksService = socksService;
     }
 
     @Operation(
@@ -40,7 +40,7 @@ public class SocksController {
         if(socks.getColor().length() < 2 || socks.getCottonPart() < 0 || socks.getCottonPart() > 100 || socks.getQuantity() < 1) {
             return ResponseEntity.status(400).build();
         }
-        socsService.addSocks(socks);
+        socksService.addSocks(socks);
         return ResponseEntity.status(200).build();
     }
 
@@ -64,7 +64,7 @@ public class SocksController {
         if(socks.getColor().length() < 2 || socks.getCottonPart() < 0 || socks.getCottonPart() > 100 || socks.getQuantity() < 1) {
             return ResponseEntity.status(400).build();
         }
-        return socsService.takeSocks(socks) ? ResponseEntity.status(200).build() : ResponseEntity.status(400).build();
+        return socksService.takeSocks(socks) ? ResponseEntity.status(200).build() : ResponseEntity.status(400).build();
     }
 
     @Operation(
@@ -90,6 +90,6 @@ public class SocksController {
         if(color.length() < 2 || cottonPart < 0 || cottonPart > 100 || !OPERATIONS.contains(operation)) {
             return ResponseEntity.status(400).build();
         }
-        return ResponseEntity.ok(socsService.getSocks(color, operation, cottonPart));
+        return ResponseEntity.ok(socksService.getSocks(color, operation, cottonPart));
     }
 }

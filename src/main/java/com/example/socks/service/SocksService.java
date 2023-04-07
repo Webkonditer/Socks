@@ -8,13 +8,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class SocsService {
+public class SocksService {
 
     private final SocksRepository socksRepository;
 
     public static final List<String> OPERATIONS = Arrays.asList("moreThan", "lessThan", "equal");
 
-    public SocsService(SocksRepository socksRepository) {
+    public SocksService(SocksRepository socksRepository) {
         this.socksRepository = socksRepository;
     }
 
